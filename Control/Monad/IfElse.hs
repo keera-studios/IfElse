@@ -123,7 +123,6 @@ infixl 1 >>=>>=?
 whileM                :: (Monad m) => m Bool -> m () -> m ()
 whileM mb m = do b <- mb ; when b (m >> whileM mb m)
 
-
 -- Named with M because 'Prelude.until' exists
 -- | Negation of 'whileM': execute an action so long as the boolean
 -- returns false.
@@ -131,13 +130,11 @@ whileM mb m = do b <- mb ; when b (m >> whileM mb m)
 untilM                :: (Monad m) => m Bool -> m () -> m ()
 untilM mb m = do b <- mb ; unless b (m >> untilM mb m)
 
-
 -- | Strict version of 'return' because usually we don't need that
 -- extra thunk.
 {-# INLINE return' #-}
 return'  :: (Monad m) => a -> m a
 return' x = return $! x
-
 
 -- | Take an action and make it into a side-effecting 'return'.
 -- Because I seem to keep running into @m ()@ and the like.
@@ -146,10 +143,8 @@ infixr 8 `returning`
 returning      :: (Monad m) => (a -> m b) -> (a -> m a)
 f `returning` x = f x >> return x
 
-
 -- For reference this is also helpful:
 -- >    liftM2 (>>) f g == \x -> f x >> g x
-
 
 -- | This conversion is common enough to make a name for.
 {-# INLINE maybeMP #-}
