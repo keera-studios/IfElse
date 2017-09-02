@@ -4,13 +4,14 @@ Cabal-Version:  >= 1.2
 License:        BSD3
 License-File:   LICENSE
 Author:         J.R. Heard and Wren Thornton
-Maintainer:     J.R. Heard
+Maintainer:     Ivan Perez <ivan.perez@keera.co.uk>
 Category:       Control
 Description:    Anaphoric and miscellaneous useful control-flow
 Synopsis:       Anaphoric and miscellaneous useful control-flow
 Build-Type:     Simple
 
 Library
-   Build-Depends: base, mtl
-   Exposed-Modules: 
-       Control.Monad.IfElse
+  Build-Depends: base, mtl
+  ghc-options: -Wall
+  Exposed-Modules:
+      Control.Monad.IfElse
