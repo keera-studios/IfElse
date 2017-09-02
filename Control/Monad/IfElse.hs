@@ -1,5 +1,6 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
--- | Library for control flow inside of monads with anaphoric variants on if and when and a C-like \"switch\" function.
+-- | Library for control flow inside of monads with anaphoric variants on if
+--   and when and a C-like \"switch\" function.
 --
 -- Information:
 --
@@ -46,7 +47,7 @@ condM ((test,action) : rest) = test >>= \t -> if t then action else condM rest
 --
 -- if the value is Just x then execute @ action x @ , then return @ True @ .  otherwise return @ False @ .
 awhen :: Monad m => Maybe a -> (a -> m ()) -> m ()
-awhen Nothing _ = return ()
+awhen Nothing  _      = return ()
 awhen (Just x) action = action x
 
 -- | Chainable anaphoric whenM.
@@ -57,14 +58,14 @@ awhenM test action = test >>= \t -> case t of
 
 -- | Anaphoric when-else chain.  Like a switch statement, but less cluttered
 acond :: Monad m => [(Maybe a, a -> m ())] -> m ()
-acond ((Nothing,_) : rest) = acond rest
+acond ((Nothing,_) : rest)   = acond rest
 acond ((Just x, action) : _) = action x
-acond [] = return ()
+acond []                     = return ()
 
 -- | Anaphoric if.
 aif :: Monad m => Maybe a -> (a -> m b) -> m b -> m b
-aif Nothing _ elseclause = elseclause
-aif (Just x) ifclause _ = ifclause x
+aif Nothing  _        elseclause = elseclause
+aif (Just x) ifclause _          = ifclause x
 
 -- | Anaphoric if where the test is in Monad m.
 aifM :: Monad m => m (Maybe a) -> (a -> m b) -> m b -> m b
