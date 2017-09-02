@@ -17,12 +17,6 @@ module Control.Monad.IfElse where
 
 import Control.Monad
 
--- A if with no else for unit returning thunks.
---   Returns the value of the test.
--- when :: Monad m => Bool -> m () -> m Bool
--- when True action = action >> return True
--- when False _ = return False
-
 -- | A if with no else for unit returning thunks.
 --   Returns the value of the test.
 whenM :: Monad m => m Bool -> m () -> m ()
