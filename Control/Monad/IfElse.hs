@@ -26,15 +26,15 @@ import Control.Monad
 -- | A if with no else for unit returning thunks.
 --   Returns the value of the test.
 whenM :: Monad m => m Bool -> m () -> m ()
-whenM test action = test >>= \t -> if t then action else return ()
+whenM test action = test >>= \t -> when t action
 
 -- | Like a switch statement, and less cluttered than if else if
 --
 -- > cond [ (t1,a1), (t2,a2), ... ]
 cond :: Monad m => [(Bool, m ())] -> m ()
-cond [] = return ()
+cond []                  = return ()
 cond ((True,action) : _) = action
-cond ((False,_) : rest) = cond rest
+cond ((False,_) : rest)  = cond rest
 
 -- | Like a switch statement, and less cluttered than if else if
 --
@@ -52,9 +52,7 @@ awhen (Just x) action = action x
 
 -- | Chainable anaphoric whenM.
 awhenM :: Monad m => m (Maybe a) -> (a -> m ()) -> m ()
-awhenM test action = test >>= \t -> case t of
-                                      Just x -> action x
-                                      Nothing -> return ()
+awhenM test action = test >>= \t -> awhen t action
 
 -- | Anaphoric when-else chain.  Like a switch statement, but less cluttered
 acond :: Monad m => [(Maybe a, a -> m ())] -> m ()
