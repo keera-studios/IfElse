@@ -158,5 +158,3 @@ maybeMP  = maybe mzero return
 
 -- This rule should only fire when type-safe
 {-# RULES "maybeMP/id" maybeMP = id #-}
-
-
