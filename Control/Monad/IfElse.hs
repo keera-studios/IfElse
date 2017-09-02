@@ -1,14 +1,14 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
 -- | Library for control flow inside of monads with anaphoric variants on if and when and a C-like \"switch\" function.
--- 
--- Information: 
--- 
+--
+-- Information:
+--
 --   [@Author@] Jeff Heard
--- 
+--
 --   [@Copyright@] 2008 Jeff Heard
---   
+--
 --   [@License@] BSD
---  
+--
 --   [@Version@] 1.0
 --
 --   [@Status@] Alpha
@@ -16,7 +16,7 @@ module Control.Monad.IfElse where
 
 import Control.Monad
 
--- A if with no else for unit returning thunks.  
+-- A if with no else for unit returning thunks.
 --   Returns the value of the test.
 -- when :: Monad m => Bool -> m () -> m Bool
 -- when True action = action >> return True
@@ -28,37 +28,37 @@ whenM :: Monad m => m Bool -> m () -> m ()
 whenM test action = test >>= \t -> if t then action else return ()
 
 -- | Like a switch statement, and less cluttered than if else if
--- 
+--
 -- > cond [ (t1,a1), (t2,a2), ... ]
 cond :: Monad m => [(Bool, m ())] -> m ()
 cond [] = return ()
-cond ((True,action) : _) = action 
+cond ((True,action) : _) = action
 cond ((False,_) : rest) = cond rest
 
--- | Like a switch statement, and less cluttered than if else if 
--- 
+-- | Like a switch statement, and less cluttered than if else if
+--
 -- > condM [ (t1,a1), (t2,a2), ... ]
 condM :: Monad m => [(m Bool, m ())] -> m ()
 condM [] = return ()
 condM ((test,action) : rest) = test >>= \t -> if t then action else condM rest
 
--- | Chainable anaphoric when.  Takes a maybe value.  
---  
+-- | Chainable anaphoric when.  Takes a maybe value.
+--
 -- if the value is Just x then execute @ action x @ , then return @ True @ .  otherwise return @ False @ .
 awhen :: Monad m => Maybe a -> (a -> m ()) -> m ()
 awhen Nothing _ = return ()
-awhen (Just x) action = action x 
+awhen (Just x) action = action x
 
 -- | Chainable anaphoric whenM.
 awhenM :: Monad m => m (Maybe a) -> (a -> m ()) -> m ()
-awhenM test action = test >>= \t -> case t of 
-                                      Just x -> action x 
+awhenM test action = test >>= \t -> case t of
+                                      Just x -> action x
                                       Nothing -> return ()
 
 -- | Anaphoric when-else chain.  Like a switch statement, but less cluttered
 acond :: Monad m => [(Maybe a, a -> m ())] -> m ()
 acond ((Nothing,_) : rest) = acond rest
-acond ((Just x, action) : _) = action x 
+acond ((Just x, action) : _) = action x
 acond [] = return ()
 
 -- | Anaphoric if.
@@ -100,7 +100,7 @@ infixl 1 >>!
 (>>=>>!) = unlessM
 infixl 1 >>=>>!
 
--- | Bind the result of the last expression in an anaphoric when.  
+-- | Bind the result of the last expression in an anaphoric when.
 (>>=?) = awhen
 infixl 1 >>=?
 
