@@ -17,6 +17,8 @@ module Control.Monad.IfElse where
 
 import Control.Monad
 
+infixl 0 `repeatUntil`
+
 -- | A if with no else for unit returning thunks.
 --   Returns the value of the test.
 whenM :: Monad m => m Bool -> m () -> m ()
@@ -145,3 +147,15 @@ maybeMP  = maybe mzero return
 
 -- This rule should only fire when type-safe
 {-# RULES "maybeMP/id" maybeMP = id #-}
+
+-- | Repeat m until result satisfies the predicate p
+repeatUntil :: Monad m => m a -> (a -> Bool) -> m a
+m `repeatUntil` p = m >>= \x -> if not (p x) then repeatUntil m p else return x
+
+-- | C-style for-loop.
+--
+-- Example:
+--
+-- >>> for 0 (+1) (>=10) ...
+for :: Monad m => a -> (a -> a) -> (a -> Bool) -> m b -> m ()
+for i f p m = when (p i) $ m >> for (f i) f p m
