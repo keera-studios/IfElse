@@ -18,7 +18,8 @@ library
     Control.Monad.IfElse
 
   build-depends:
-    base, mtl
+      base
+    , mtl
 
   ghc-options:
     -Wall
