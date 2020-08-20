@@ -12,7 +12,7 @@ synopsis:       Anaphoric and miscellaneous useful control-flow
 description:    Anaphoric and miscellaneous useful control-flow
 
 library
-  build-depends: base, mtl
-  ghc-options: -Wall
   exposed-modules:
       Control.Monad.IfElse
+  build-depends: base, mtl
+  ghc-options: -Wall
