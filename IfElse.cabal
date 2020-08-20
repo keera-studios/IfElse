@@ -4,7 +4,7 @@ Cabal-Version:  >= 1.2
 License:        BSD3
 License-File:   LICENSE
 Author:         J.R. Heard and Wren Thornton
-Maintainer:     Ivan Perez <ivan.perez@keera.co.uk>
+Maintainer:     support@keera.co.uk
 Category:       Control
 Description:    Anaphoric and miscellaneous useful control-flow
 Synopsis:       Anaphoric and miscellaneous useful control-flow
