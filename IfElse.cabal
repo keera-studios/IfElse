@@ -1,14 +1,15 @@
+cabal-version:  >= 1.2
+build-type:     Simple
+
 name:           IfElse
 version:        0.85
-cabal-version:  >= 1.2
-license:        BSD3
-license-file:   LICENSE
 author:         J.R. Heard and Wren Thornton
 maintainer:     support@keera.co.uk
+license:        BSD3
+license-file:   LICENSE
 category:       Control
-description:    Anaphoric and miscellaneous useful control-flow
 synopsis:       Anaphoric and miscellaneous useful control-flow
-build-type:     Simple
+description:    Anaphoric and miscellaneous useful control-flow
 
 library
   build-depends: base, mtl
