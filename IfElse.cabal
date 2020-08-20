@@ -13,7 +13,7 @@ description:    Anaphoric and miscellaneous useful control-flow
 
 library
   exposed-modules:
-      Control.Monad.IfElse
+    Control.Monad.IfElse
   build-depends:
     base, mtl
   ghc-options:
